@@ -1,0 +1,35 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: production-mvp
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/production_mvp}
+    username: ${DB_USERNAME:prod_app}
+    password: ${DB_PASSWORD:prod_app_pass}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: false
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:ReplaceThisWithAtLeast32BytesSecretKey!}
+    expiration-seconds: ${JWT_EXPIRATION_SECONDS:900}
+
+logging:
+  level:
+    root: INFO
+    org.springframework.security: INFO
+    org.hibernate.SQL: WARN
