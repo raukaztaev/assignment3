@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Date;
 import javax.crypto.SecretKey;
+import org.springframework.beans.factory.BeanCreationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ public class JwtService {
 
     public JwtService(@Value("${security.jwt.secret}") String secret,
                       @Value("${security.jwt.expiration-seconds}") long expirationSeconds) {
+        if (secret == null || secret.isBlank() || secret.length() < 32) {
+            throw new BeanCreationException("security.jwt.secret must be set and contain at least 32 characters");
+        }
         this.signingKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
         this.expirationSeconds = expirationSeconds;
     }
