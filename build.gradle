@@ -53,6 +53,13 @@ spotbugs {
     ignoreFailures = true
 }
 
+tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
+    reports {
+        html.required.set(true)
+        xml.required.set(false)
+    }
+}
+
 pmd {
     consoleOutput = true
     toolVersion = '7.14.0'
