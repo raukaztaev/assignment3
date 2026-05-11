@@ -21,6 +21,7 @@ spring:
       hibernate:
         format_sql: false
   jackson:
+    time-zone: Asia/Almaty
     deserialization:
       fail-on-unknown-properties: true
   flyway:

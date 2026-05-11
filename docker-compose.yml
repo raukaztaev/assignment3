@@ -7,6 +7,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-production_mvp}
       POSTGRES_USER: ${POSTGRES_USER:-postgres_admin}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres_admin_pass}
+      TZ: Asia/Almaty
     ports:
       - "5432:5432"
     volumes:
@@ -29,6 +30,7 @@ services:
         condition: service_healthy
     environment:
       SERVER_PORT: 8080
+      TZ: Asia/Almaty
       DB_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB:-production_mvp}
       DB_USERNAME: ${APP_DB_USER:-prod_app}
       DB_PASSWORD: ${APP_DB_PASSWORD:-prod_app_pass}
