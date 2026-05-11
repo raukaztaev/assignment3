@@ -16,6 +16,7 @@ import com.example.mvp.repository.ProductionPlanRepository;
 import com.example.mvp.security.CurrentUserService;
 import java.time.OffsetDateTime;
 import java.util.List;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -101,12 +102,12 @@ public class PlanService {
     }
 
     @Transactional(readOnly = true)
-    public List<PlanResponse> getAll() {
+    public List<PlanResponse> getAll(int page, int size) {
         UserEntity actor = currentUserService.getCurrentUser();
         if (actor.getRole() == Role.OPERATOR) {
             throw new ForbiddenOperationException("Access denied");
         }
-        return planRepository.findAll().stream().map(this::toResponse).toList();
+        return planRepository.findAll(PageRequest.of(page, size)).stream().map(this::toResponse).toList();
     }
 
     @Transactional(readOnly = true)

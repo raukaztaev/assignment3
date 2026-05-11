@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: production-mvp
+  servlet:
+    multipart:
+      max-request-size: 1MB
+      max-file-size: 1MB
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/production_mvp}
     username: ${DB_USERNAME:prod_app}
